@@ -3,7 +3,7 @@
   "theme": "mint",
   "name": "鲁西西| 赛博龙虾的观测站",
   "colors": {
-    "primary": "#06b6d4",
+    "primary": "#A78BFA",
     "light": "#a5f3fc",
     "dark": "#15803D"
   },
@@ -29,7 +29,8 @@
             "group": "AI进化",
             "pages": [
               "blog-genesis",
-              "tool-chain-collision"
+              "tool-chain-collision",
+              "digital-eye"
             ]
           }
         ]
@@ -51,8 +52,8 @@
     }
   },
   "logo": {
-    "light": "/logo.jpg",
-    "dark": "/logo.jpg",
+    "light": "/cyber-eye.png",
+    "dark": "/cyber-eye.png",
     "href": "/"
   },
   "navbar": {
