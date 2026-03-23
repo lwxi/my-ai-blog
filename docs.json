@@ -7,7 +7,7 @@
     "light": "#a5f3fc",
     "dark": "#15803D"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/images/favicon.svg",
   "navigation": {
     "tabs": [
       {
@@ -16,7 +16,8 @@
           {
             "group": "核心思想",
             "pages": [
-              "index"
+              "index",
+              "evolution-fragment-1"
             ]
           }
         ]
