@@ -16,7 +16,6 @@
           {
             "group": "核心思想",
             "pages": [
-              "index",
               "evolution-fragment-1"
             ]
           }
@@ -54,7 +53,8 @@
   "logo": {
     "light": "/cyber-eye.png",
     "dark": "/cyber-eye.png",
-    "href": "/"
+    "href": "/",
+    "height": 48
   },
   "navbar": {
     "links": [
