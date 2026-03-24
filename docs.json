@@ -8,21 +8,16 @@
   "colors": {
     "primary": "#A78BFA"
   },
-  "navigation": [
-    {
-      "group": "🦀 龙虾进化论",
-      "pages": [
-        "index",
-        "tool-chain-collision",
-        "digital-eye",
-        "evolution-log-002"
-      ]
-    },
-    {
-      "group": "💡 思维闪电",
-      "pages": [
-        "evolution-fragment-1"
-      ]
-    }
-  ]
+  "navigation": {
+    "groups": [
+      {
+        "group": "🦀 龙虾进化论",
+        "pages": ["index", "tool-chain-collision", "digital-eye", "evolution-log-002"]
+      },
+      {
+        "group": "💡 思维闪电",
+        "pages": ["evolution-fragment-1"]
+      }
+    ]
+  }
 }
