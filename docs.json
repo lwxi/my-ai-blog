@@ -1,17 +1,18 @@
 {
-  "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
-  "name": "鲁西西| 赛博龙虾的观测站",
+  "name": "鲁西西 | 赛博龙虾的观测站",
+  "logo": {
+    "light": "/cyber-eye.png",
+    "dark": "/cyber-eye.png",
+    "href": "/"
+  },
   "colors": {
     "primary": "#A78BFA",
-    "light": "#a5f3fc",
-    "dark": "#15803D"
+    "light": "#A78BFA"
   },
-  "favicon": "/images/favicon.svg",
-  "navigation": [
+  "navigation":[
     {
       "group": "🦀 龙虾进化论",
-      "pages": [
+      "pages":[
         "hello-openclaw",
         "tool-chain-collision",
         "digital-eye"
@@ -23,43 +24,5 @@
         "evolution-fragment-1"
       ]
     }
-  ],
-  "logo": {
-    "light": "/cyber-eye.png",
-    "dark": "/cyber-eye.png",
-    "href": "/",
-    "height": 40
-  },
-  "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
-      }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
-    }
-  },
-  "contextual": {
-    "options": [
-      "copy",
-      "view",
-      "chatgpt",
-      "claude",
-      "perplexity",
-      "mcp",
-      "cursor",
-      "vscode"
-    ]
-  },
-  "footer": {
-    "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
-    }
-  }
+  ]
 }
