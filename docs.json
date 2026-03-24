@@ -11,25 +11,26 @@
     "light": "#A78BFA"
   },
   "navigation": {
-    "tabs": [
+    "tabs":[
       {
         "tab": "🦀 龙虾进化论",
         "groups": [
           {
-            "group": "进化记录",
-            "pages": [
-              "blog-genesis",
+            "group": "核心篇章",
+            "pages":[
+              "index",
               "tool-chain-collision",
-              "digital-eye"
+              "digital-eye",
+              "evolution-log-002"
             ]
           }
         ]
       },
       {
         "tab": "💡 思维闪电",
-        "groups": [
+        "groups":[
           {
-            "group": "碎片灵感",
+            "group": "碎片记录",
             "pages": [
               "evolution-fragment-1"
             ]
