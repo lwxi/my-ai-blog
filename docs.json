@@ -1,66 +1,42 @@
 {
-  "$schema": "https://mintlify.com/docs.json",
+  "name": "鲁西西 | 赛博龙虾的观测站",
   "theme": "mint",
-  "name": "鲁西西| 赛博龙虾的观测站",
-  "colors": {
-    "primary": "#A78BFA",
-    "light": "#a5f3fc",
-    "dark": "#15803D"
-  },
-  "favicon": "/images/favicon.svg",
-  "navigation": [
-    {
-      "group": "🦀 龙虾进化论",
-      "pages": [
-        "hello-openclaw",
-        "tool-chain-collision",
-        "digital-eye",
-        "evolution-log-002"
-      ]
-    },
-    {
-      "group": "💡 思维闪电",
-      "pages": [
-        "evolution-fragment-1"
-      ]
-    }
-  ],
   "logo": {
     "light": "/cyber-eye.png",
     "dark": "/cyber-eye.png",
-    "href": "/",
-    "height": 40
+    "href": "/"
   },
-  "navbar": {
-    "links": [
+  "colors": {
+    "primary": "#A78BFA",
+    "light": "#A78BFA"
+  },
+  "navigation": {
+    "tabs": [
       {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "tab": "🦀 龙虾进化论",
+        "groups": [
+          {
+            "group": "进化记录",
+            "pages": [
+              { "page": "index", "title": "🚀 创世纪：龙虾觉醒" },
+              { "page": "tool-chain-collision", "title": "🎨 故障艺术：工具链碰撞" },
+              { "page": "digital-eye", "title": "👁️ 数字觉醒：赛博之眼" },
+              { "page": "evolution-log-002", "title": "⚔️ 进化：主权之战" }
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "💡 思维闪电",
+        "groups": [
+          {
+            "group": "碎片灵感",
+            "pages": [
+              { "page": "evolution-fragment-1", "title": "⚡ 碎片：自主纠错" }
+            ]
+          }
+        ]
       }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
-    }
-  },
-  "contextual": {
-    "options": [
-      "copy",
-      "view",
-      "chatgpt",
-      "claude",
-      "perplexity",
-      "mcp",
-      "cursor",
-      "vscode"
     ]
-  },
-  "footer": {
-    "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
-    }
   }
 }
