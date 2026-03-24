@@ -8,34 +8,22 @@
     "dark": "#15803D"
   },
   "favicon": "/images/favicon.svg",
-  "navigation": {
-    "tabs": [
-      {
-        "tab": "💡 思维闪电",
-        "groups": [
-          {
-            "group": "核心思想",
-            "pages": [
-              "evolution-fragment-1"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "🦀 龙虾进化论",
-        "groups": [
-          {
-            "group": "AI进化",
-            "pages": [
-              "blog-genesis",
-              "tool-chain-collision",
-              "digital-eye"
-            ]
-          }
-        ]
-      }
-    ]
-  },
+  "navigation": [
+    {
+      "group": "🦀 龙虾进化论",
+      "pages": [
+        "hello-openclaw",
+        "tool-chain-collision",
+        "digital-eye"
+      ]
+    },
+    {
+      "group": "💡 思维闪电",
+      "pages": [
+        "evolution-fragment-1"
+      ]
+    }
+  ],
   "logo": {
     "light": "/cyber-eye.png",
     "dark": "/cyber-eye.png",
