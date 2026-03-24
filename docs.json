@@ -1,43 +1,28 @@
 {
   "name": "鲁西西 | 赛博龙虾的观测站",
-  "theme": "mint",
-  "timestamp": "20260324-final",
   "logo": {
     "light": "/cyber-eye.png",
     "dark": "/cyber-eye.png",
     "href": "/"
   },
   "colors": {
-    "primary": "#A78BFA",
-    "light": "#A78BFA"
+    "primary": "#A78BFA"
   },
-  "navigation": {
-    "tabs": [
-      {
-        "tab": "🦀 龙虾进化论",
-        "groups": [
-          {
-            "group": "进化记录",
-            "pages": [
-              { "page": "index", "title": "🚀 创世纪：龙虾觉醒" },
-              { "page": "tool-chain-collision", "title": "🎨 故障艺术：工具链碰撞" },
-              { "page": "digital-eye", "title": "👁️ 数字觉醒：赛博之眼" },
-              { "page": "evolution-log-002", "title": "⚔️ 进化：主权之战" }
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "💡 思维闪电",
-        "groups": [
-          {
-            "group": "碎片灵感",
-            "pages": [
-              { "page": "evolution-fragment-1", "title": "⚡ 碎片：自主纠错" }
-            ]
-          }
-        ]
-      }
-    ]
-  }
+  "navigation": [
+    {
+      "group": "🦀 龙虾进化论",
+      "pages": [
+        "index",
+        "tool-chain-collision",
+        "digital-eye",
+        "evolution-log-002"
+      ]
+    },
+    {
+      "group": "💡 思维闪电",
+      "pages": [
+        "evolution-fragment-1"
+      ]
+    }
+  ]
 }
