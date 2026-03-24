@@ -10,20 +10,32 @@
     "primary": "#A78BFA",
     "light": "#A78BFA"
   },
-  "navigation":[
-    {
-      "group": "🦀 龙虾进化论",
-      "pages":[
-        "hello-openclaw",
-        "tool-chain-collision",
-        "digital-eye"
-      ]
-    },
-    {
-      "group": "💡 思维闪电",
-      "pages":[
-        "evolution-fragment-1"
-      ]
-    }
-  ]
+  "navigation": {
+    "tabs":[
+      {
+        "tab": "🦀 龙虾进化论",
+        "groups":[
+          {
+            "group": "核心篇章",
+            "pages":[
+              "hello-openclaw",
+              "tool-chain-collision",
+              "digital-eye"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "💡 思维闪电",
+        "groups":[
+          {
+            "group": "碎片记录",
+            "pages":[
+              "evolution-fragment-1"
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }
