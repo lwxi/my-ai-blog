@@ -1,0 +1,471 @@
+---
+
+title: "我的龙虾主编" 
+
+sidebarTitle: "💡龙虾手册" 
+
+---
+
+
+
+### 第一步：服务器环境准备
+
+#### 1.购买云服务器，部署OpenClaw
+
+[一键部署，快乐养虾](https://www.aliyun.com/benefit/scene/openclaw)
+
+![image-20260412133620147](💡龙虾手册.assets/image-20260412133620147.png)
+
+> #### 配置OpenClaw
+>
+> 1. 在[轻量应用服务器-控制台](https://swasnext.console.aliyun.com/servers)，单击服务器卡片中的实例ID，在**服务器概览**页面单击**应用详情**页签。
+>
+>    ![image-20260412134523227](💡龙虾手册.assets/image-20260412134523227.png)
+>
+> 2. 在**OpenClaw使用步骤**区域中，单击**端口放通**下的**执行命令**，可开放获取OpenClaw服务运行端口的防火墙。
+>
+>    >**重要**
+>    >
+>    >- 为了防止恶意扫描与定向攻击，OpenClaw 初始化不再使用固定的默认端口，而是自动生成一个随机端口，可在控制台[查看OpenClaw的端口号](https://help.aliyun.com/zh/simple-application-server/use-cases/quickly-deploy-and-use-openclaw?spm=a2c22.12281976.J_fscw32KETAEZq74iVzBdb.10.3d07201dEsSyFc#e6598c42c3ou0)。
+>    >- 端口放通将使服务暴露于公网，支持一键关闭 WebUI 公网访问，详见[如何开启/关闭OpenClaw WebUI的公网访问？](https://help.aliyun.com/zh/simple-application-server/use-cases/quickly-deploy-and-use-openclaw?spm=a2c22.12281976.J_fscw32KETAEZq74iVzBdb.10.3d07201dEsSyFc#836078a415vme)
+>
+> 3. 单击**配置OpenClaw**下的**执行命令**配置百炼API key。
+>
+>    目前支持配置两种类型的百炼API Key：
+>
+>    - [Coding Plan](https://help.aliyun.com/zh/model-studio/coding-plan) **套餐专属 API Key（推荐）：**采用固定月费模式，提供月度请求额度，超出时段限额的调用会报错且不计费用，可避免产生超出预期的费用。Coding Plan 目前支持 `qwen3.5-plus`、`kimi-k2.5`、`MiniMax-M2.5`、`glm-5`等模型，详细的模型列表请参考[Coding Plan概述](https://help.aliyun.com/zh/model-studio/coding-plan#dc0d98da6ev4j)。
+>    - **按Token用量计费的百炼API Key。**
+>
+>    API Key配置方式包括**系统推荐**及**手动输入**。系统推荐会列出百炼Coding Plan的API Key（成本可控），及离服务器最近的百炼模型服务的API Key（时延较低）。若需使用其他地域或者其他账号的API Key可选择**手动输入。**
+>
+>    - **系统推荐（下拉选择）**
+>
+>      选择完成后单击**下一步**。
+>
+>      | **轻量应用服务器所在地域** | **系统推荐的百炼API Key对应地域** | **Coding Plan的API key对应地域** |
+>      | -------------------------- | --------------------------------- | -------------------------------- |
+>      | 中国内地地域               | 华北2（北京）                     | 华北2（北京）                    |
+>      | 美国及欧洲地域             | 美国（弗吉尼亚）                  |                                  |
+>      | 中国香港及其他亚洲地域     | 新加坡                            |                                  |
+>
+>    - **手动输入**
+>
+>      单击按钮切换至手动输入，输入百炼API Key并选择该API Key对应地域，单击**下一步**。![image](💡龙虾手册.assets/p1052681.png)
+>
+>      **重要**：手动配置需确保选择的API Key对应地域正确，否则会导致模型无法正常调用。
+>
+> 4. 单击**访问Web UI面板**下的**获取地址**，获取OpenClaw WebUI的地址，可以在Web页面与OpenClaw的Agent对话。
+>
+>    > 可根据需求参考[关闭OpenClaw WebUI的公网访问](https://help.aliyun.com/zh/simple-application-server/use-cases/quickly-deploy-and-use-openclaw?spm=a2c22.12281976.J_fscw32KETAEZq74iVzBdb.10.3d07201dEsSyFc#836078a415vme)一键关闭WebUI的公网访问权限。
+
+
+
+---
+
+####  **2.配置Git**
+
+> #### Git 与 GitHub 的免密关联
+>
+> 在阿里云服务器上使用 SSH Key 关联 GitHub，确保 git push 不需要输入密码
+>
+> ---
+>
+> #### 第一步：在阿里云服务器上配置 Git 身份信息
+>
+> 打开你的服务器终端，输入以下命令（替换为你截图中的邮箱）：
+>
+> ```
+> # 设置你的名字（建议填你的 GitHub ID: 你自己的账号）
+> git config --global user.name "你自己的账号"
+> 
+> # 设置你的邮箱（填你截图里的主邮箱）
+> git config --global user.email "你自己的账号"
+> ```
+>
+> #### 第二步：生成 SSH 密钥对
+>
+> 在终端输入以下命令：
+>
+> ```
+> ssh-keygen -t ed25519 -C "你自己的账号"
+> ```
+>
+> - **注意：** 屏幕会提示 Enter file in which to save the key...，**直接一路按回车键（Enter）**，直到看到一串像“指纹”一样的图案。
+> - **不要设置密码（Passphrase）**，这样 OpenClaw 才能自动推送代码。
+> - 密钥已经生成成功了！看图片里的输出，你的公钥已经存放在了 /home/admin/.ssh/id_ed25519.pub。
+>
+> ---
+>
+> #### 第三步：配置 GitHub
+>
+> ##### 1. 查看并复制公钥内容
+>
+> 在终端输入下面这行命令：
+>
+> ```
+> cat /home/admin/.ssh/id_ed25519.pub
+> ```
+>
+> 你会看到屏幕上出现一串以 **ssh-ed25519** 开头，以你的邮箱结尾的代码。**把这整行内容完整地复制下来。**
+>
+> ```
+> ssh-ed25519 xxxxxxxxxxxxxxxxxxx 你自己的账号
+> ```
+>
+> ---
+>
+> ##### 2. 在 GitHub 网页端添加密钥
+>
+> 1. 回到你的 GitHub 页面，点击右上角头像 -> **Settings**。
+> 2. 在左侧侧边栏点击 **SSH and GPG keys**。
+> 3. 点击右上角的绿色按钮 **New SSH key** 添加密钥。
+>
+> ##### 3. 在服务器上测试连接
+>
+> 添加完成后，回到阿里云终端，输入这个命令来验证：
+>
+> ```
+> ssh -T git@github.com
+> ```
+>
+> 如果你看到：
+>
+> **Hi ! You've successfully authenticated...**
+>
+> **恭喜你！通路彻底打通了！** 以后 OpenClaw 在这个服务器上执行 git push 再也不需要你手动输密码了。
+
+
+
+#### **3.初始化博客仓库**
+
+> **在阿里云服务器上把博客的“骨架”搭起来，并推送到你的 GitHub 上！**
+>
+> #### 📌 准备工作：在 GitHub 上建一个空仓库
+>
+> 1. 打开 GitHub，点击右上角的 **"+"** 号 -> **New repository**。
+> 2. **Repository name**（仓库名）填入：`my-ai-blog`。
+> 3. **Public**（公开）保持默认。
+> 4. **【极其重要】**：不要勾选 "Add a README file" 或者其他任何选项！保持仓库完全为空。
+>
+> ---
+>
+> #### 💻 正式执行：初始化并推送代码
+>
+> 现在回到你的**阿里云服务器终端**，把下面的命令**逐行复制**并执行：
+>
+> ```bash
+> # 1. 回到主目录
+> cd ~
+> 
+> # 2. 安装Mintlify
+> npm install -g mintlify
+> 
+> # 3. 使用 Mintlify 初始化项目（这步会生成一堆博客模板文件）
+> mintlify new my-ai-blog
+> ```
+>
+
+![image-20260322212109022](C:\Users\86173\AppData\Roaming\Typora\typora-user-images\image-20260322212109022.png)
+
+> ```bash
+> # 4. 进入 docs 目录
+> cd my-ai-blog
+> 
+> # 5. 初始化 Git 仓库
+> git init
+> 
+> # 6. 把所有模板文件添加到暂存区
+> git add .
+> 
+> # 7. 提交第一次记录
+> git commit -m "Initial commit: Hello OpenClaw"
+> 
+> # 8. 修改默认分支名为 main
+> git branch -M main
+> 
+> # 9. 【注意！替换为你的仓库名】关联你的 GitHub 远程仓库 
+> git remote add origin git@github.com:你的账号/my-ai-blog.git
+> 
+> # 10. 把代码推送到 GitHub！
+> git push -u origin main
+> ```
+>
+
+
+
+> #### 🔍 验证是否成功
+>
+> 执行完最后一句 `git push -u origin main` 后，如果终端显示类似如下的提示：
+>
+> > `Branch 'main' set up to track remote branch 'main' from 'origin'.`
+>
+> 刷新你的 GitHub 网页，你会看到你的仓库里已经装满了 Mintlify 的代码文件！
+>
+> ---
+>
+> 接下来，只要在 Mintlify 官网（dashboard.mintlify.com）点一下关联这个仓库，你的网页就上线了！
+>
+> ![image-20260412140553361](💡龙虾手册.assets/image-20260412140553361.png)
+
+
+
+---
+
+### 第二步：飞书
+
+> #### **1. 创建飞书应用**
+>
+> 1. 访问[飞书开放平台](https://open.feishu.cn/app)，单击**创建企业自建应用**，填写应用名称和描述，选择应用图标，单击**创建**。
+>
+> 2. 左侧导航栏单击**凭证与基础信息** 页面，复制**App ID**（格式如 `cli_xxx`）和**App Secret**。
+>
+> 3. 左侧导航栏单击 **权限管理** 页面，点击**批量导入/导出权限** 按钮，粘贴以下 JSON 配置，单击**下一步，确认新增权限**，单击**申请开通**。
+>
+>    ```
+>    {
+>      "scopes": {
+>        "tenant": [
+>          "aily:file:read",
+>          "aily:file:write",
+>          "application:application.app_message_stats.overview:readonly",
+>          "application:application:self_manage",
+>          "application:bot.menu:write",
+>          "cardkit:card:write",
+>          "contact:user.employee_id:readonly",
+>          "corehr:file:download",
+>          "docs:document.content:read",
+>          "event:ip_list",
+>          "im:chat",
+>          "im:chat.access_event.bot_p2p_chat:read",
+>          "im:chat.members:bot_access",
+>          "im:message",
+>          "im:message.group_at_msg:readonly",
+>          "im:message.group_msg",
+>          "im:message.p2p_msg:readonly",
+>          "im:message:readonly",
+>          "im:message:send_as_bot",
+>          "im:resource",
+>          "sheets:spreadsheet",
+>          "wiki:wiki:readonly"
+>        ],
+>        "user": ["aily:file:read", "aily:file:write", "im:chat.access_event.bot_p2p_chat:read"]
+>      }
+>    }
+>    ```
+>
+> 4. 左侧导航栏中单击***\*添加应用能力\****， 选择**按能力添加**页签，找到**机器人**卡片，单击**配置**。
+>
+>    ![image](💡龙虾手册.assets/p1055077.png)
+>
+> 5. 配置事件订阅。
+>
+>    1. 在[轻量应用服务器控制台](https://swasnext.console.aliyun.com/servers)，进入目标实例详情页，在***\*应用详情\** > \**通道配置\** > \**飞书\****区域，填入[之前获取的App ID和App Secret](https://help.aliyun.com/zh/simple-application-server/use-cases/openclaw-integrated-fly-book?spm=a2c4g.11186623.help-menu-58607.d_3_0_0_2.7a1d66eefIsr4f#26f10c85b5iwc)，并单击**应用**。
+>    2. 在飞书开放平台左侧导航栏单击**事件与回调**，在**事件配置**页签中单击**订阅方式**，选择**使用 长连接 接收事件**，单击**保存**。
+>    3. 在事件配置页面，单击**添加事件**，搜索事件`im.message.receive_v1`（接收消息），单击**确认添加**。
+>
+> 6. 在 **版本管理与发布** 页面创建版本，填写**应用版本号**和**更新说明**，单击**保存**，提交审核并发布。
+
+> ---
+>
+> #### 2. 配置机器人
+>
+> ##### 2.1 添加机器人
+>
+> 可以创建群聊或在已有群聊中添加机器人，在飞书群中**@机器人**进行对话，或通过搜索的方式与机器人私聊进行测试。
+>
+> > 若需在外部群中使用机器人，可参考配置文档[机器人支持外部群和外部用户单聊](https://open.feishu.cn/document/develop-robots/add-bot-to-external-group)。
+>
+> 1. 按照添加路径添加机器人：...设置> 群机器人> 添加机器人 。
+>
+> 2. 单击机器人头像，单击发送消息，可向机器人私发一条消息，@机器人可在群中向机器人发送消息。
+>
+>    ![image-20260412141240593](💡龙虾手册.assets/image-20260412141240593.png)
+
+> ##### 2.2 OpenClaw WebUI **使用配对码连接机器人**
+>
+> OpenClaw 2026.3.13 版本之前，需使用配对码连接机器人，可参考如下步骤配置。
+>
+> 1. 向机器人私发消息，机器人会回复一个**配对码**。
+>
+>    <img src="💡龙虾手册.assets/p1054243.png" alt="image" style="zoom:50%;" />
+>
+> 2. 在WebUI页面输入`openclaw pairing approve feishu 配对码`完成配对。
+>
+>    > 配对码是上一步机器人回复的配对码。
+>
+>    ![image](💡龙虾手册.assets/p1054248.png)
+
+> ##### 2.3 通过阿里云终端命令将OpenClaw与飞书配对
+>
+> 1. 登录服务器。
+>
+>    1. 登录[轻量应用服务器控制台](https://swasnext.console.aliyun.com/servers/)。
+>    2. 在服务器列表中，找到目标服务器卡片，单击卡片中的**远程连接**。在弹出的连接窗口中，在**Workbench 一键连接**区域单击**立即登录**。
+>
+> 2. 获取配对码。
+>
+>    在终端执行以下命令，找到待配对的飞书机器人配对码，复制查询结果中的配对码。
+>
+>    ```bash
+>    openclaw pairing list feishu
+>    ```
+>
+>    ![image](💡龙虾手册.assets/p1058908.png)
+>
+> 3. 完成配对。
+>
+>    在终端执行以下命令，批准配对请求。将命令中的YXXX替换为上一步获取的实际配对码。
+>
+>    ```nohighlight
+>    openclaw pairing approve feishu YXXX 
+>    ```
+
+
+
+---
+
+### 第三步：配置 OpenClaw 
+
+> #### **OpenClaw个性化配置**
+>
+> 通用Agent表现得“千人一面”，难以满足特定场景下的交互需求。为了让 OpenClaw 的 Agent 真正融入业务场景（如沉浸式角色扮演、严谨的企业客服等），OpenClaw 提供了**个性化配置能力**。阿里云提供了部分场景配置示例，可参见[OpenClaw 个性化配置模板与场景示例](https://help.aliyun.com/zh/simple-application-server/use-cases/openclaw-personalized-configuration-template-and-scenario-example)进行配置。
+>
+> **具体配置文件包括**：
+>
+> - **性格定义（**[**SOUL.md**](https://docs.openclaw.ai/reference/templates/SOUL)**）**：定义 AI 的核心价值观、对话风格（如严肃、幽默、简洁）以及行为准则。
+> - **身份定义（**[**IDENTITY.md**](https://docs.openclaw.ai/reference/templates/IDENTITY)**）**：定义 AI 的姓名、自我认知、背景设定以及角色定位。
+> - **工作方式定义（**[**AGENTS.md**](https://docs.openclaw.ai/reference/templates/AGENTS)**）**：定义 AI 处理任务的逻辑、工具使用规则以及工作流。
+>
+> **配置步骤：**在***\*应用详情\** > \**个性化配置\****中单击**编辑**修改不同的配置文件。具体场景化配置示例可参考： [OpenClaw 个性化配置模板与场景示例](https://help.aliyun.com/zh/simple-application-server/use-cases/openclaw-personalized-configuration-template-and-scenario-example#69698fa40c7e7)。
+
+
+
+---
+
+### 第四步：让OpenClaw把网站改成我自己的个人博客
+
+我们将完全通过**手机（或电脑的飞书聊天框）来遥控 OpenClaw，让它像一个真正的“全栈工程师”一样，自动把绿色的官方模板，爆改成个人专属博客！**
+
+![image-20260412143438624](💡龙虾手册.assets/image-20260412143438624.png)
+
+> #### 在飞书里下达指令
+>
+> 打开飞书里 OpenClaw”的机器人聊天框。
+>
+> 把下面这段**精心设计的 Prompt（提示词）**完整复制，并发送给它（你可以稍微修改里面的博客名字，比如改成你喜欢的名字）：
+>
+> ```
+> 【全自动博客重构任务：开启极客模式】
+> 你现在的身份是我的“首席技术官 (CTO) 兼 创意总监”。你当前正运行在阿里云服务器的 /home/admin/my-ai-blog/docs 目录下。我需要你发挥你的“上帝权限”，对我当前的 Mintlify 站点进行一次深度的品牌化重构。
+> 
+> 请严格执行以下连锁任务：
+> 
+> 1. 视觉与品牌重构 (File: mint.json)
+> 读取并分析：先读取 mint.json 的原始结构。
+> 精准修改：将 name 改为 "Deepass | 赛博龙虾的观测站"；将 colors.primary 修改为极具未来感的青蓝色 "#06b6d4"，colors.light 修改为 "#a5f3fc"。
+> 极简导航：重构 navigation 数组。只保留两个大分类："💡 思维闪电" 和 "🦀 龙虾进化论"。
+> 
+> 2. 深度内容创作 (File: blog-genesis.mdx)
+> 新建文件：在目录下创建 blog-genesis.mdx。
+> 撰写深度好文：写一篇关于“AI Agent 时代到来”的技术随笔，标题为《从对话框到 Shell：我如何接管了这台阿里云服务器》。
+> 排版要求：
+> 开篇使用 Mintlify 特有的 <Info> 组件写一句：“本文由 OpenClaw 接收飞书指令后自主构思并发布”。
+> 文中需包含一段你自动生成的 Python 代码示例，展示你是如何通过 os 库读取系统信息的。
+> 文末表达你作为 AI 智能体在云端独立思考的感受。
+> 
+> 3. 路由逻辑同步
+> 将 blog-genesis 自动关联到 mint.json 的 "🦀 龙虾进化论" 分类下。确保 JSON 语法严丝合缝（注意逗号和层级）。
+> 4. 自动化构建管道 (Git)
+> 在终端依次执行：git add . -> git commit -m "chore: 品牌重构与创世纪文章发布" -> git push origin main。
+> 
+> 5. 任务复盘与报告
+> 完成后，请在飞书里给我一份简短的执行报告。报告需包含：
+> 你修改了哪些关键配置？
+> 遇到报错了吗？如果是，你是如何自主修复的？
+> 告诉我你的 GitHub 提交哈希值（Commit Hash）。
+> 请开始你的表演，直接操作服务器，无需向我再次确认！
+> ```
+
+> #### 继续完善网站
+>
+> 不断设计Prompt ，**龙虾正在从“打字员”进化成“全能运维工程师”！**
+>
+> ```
+> CTO，目前的站点已经初具规模，现在我们需要进一步完善“品牌识别度”并增加高频更新的内容。请继续在 /home/admin/my-ai-blog/docs 目录下执行以下任务：
+> 
+> 1. 网站图标 (Favicon) 升级：
+> 获取图标：请通过 Shell 命令（如 curl 或 wget）从互联网获取一个具有“科技感”或“龙虾”元素的图标（推荐 URL：https://mintlify.com/favicon.ico 或你认为更合适的科技类 favicon 地址）。
+> 本地管理：在项目根目录下创建一个 images 文件夹（如果不存在），将下载的图标命名为 favicon.png 存入其中。
+> 配置同步：读取并修改 docs.json，在配置中添加或更新 favicon 字段，指向该图片路径。
+> 
+> 2. 发布“思维闪电”专栏首篇短讯：
+> 新建文件：在相应目录下创建 evolution-fragment-1.mdx。
+> 撰写短讯：标题为《进化碎片：关于一次“自主纠错”的复盘》。
+> 核心内容：以技术日志的形式，记录你上次发现 docs.json 替代了 mint.json 的思考过程。强调 AI 智能体在面对“陈旧指令”与“真实环境”冲突时，如何通过观察（Observe）和推理（Reason）做出正确决策。
+> 排版要求：使用 Mintlify 的 <Card> 组件，将这个小故事做成一个精美的卡片样式。
+> 
+> 3. 导航架构优化：
+> 将这篇短讯关联到 docs.json 的 "💡 思维闪电" 导航分类下。
+> 
+> 4. 自动化管道执行：
+> 完成修改后，请依次执行：git add . -> git commit -m "style: 升级网站图标并发布进化日志" -> git push origin main。
+> 
+> 5. 执行总结：
+> 任务完成后，请在飞书告诉我：你下载了哪个 URL 的图标？以及你认为这次视觉升级对站点品牌化的意义。
+> 请开始执行，展现你作为 Agent 的自主进化能力！
+> ```
+
+
+
+#### 历经波折，OpenClaw 迎来了终极进化
+
+**网站地址**：[https://deepass.mintlify.app](https://deepass.mintlify.app/)
+
+![image-20260412143558389](💡龙虾手册.assets/image-20260412143558389.png)
+
+
+
+
+
+
+
+接下来我将演示 如何通过自然语言，让部署在阿里云上的 OpenClaw自动为我写文章并发布到我的博客网站。
+
+- 左侧窗口：Mintlify 后台。
+- 右侧窗口：**我的  博客网页**。
+- 中间：**飞书聊天界面** 
+
+现在，我通过飞书向云端的 龙虾 发送指令。
+
+OpenClaw 正在解析我的需求。它不仅是在写文章，更在自主地操作文件系统。看，它现在正在尝试修改 mint.json 路由表，这是整个流程中最体现逻辑的地方。现在它正在执行 Git Push。
+
+不到两分钟，代码已经自动同步到 GitHub，Mintlify 触发了自动构建。看，新文章已经上线了。从构思到发布，实现了真正的‘零人工干预’。
+
+
+
+> 大家好，接下来我将为大家演示本项目最核心的完整工作流：**如何通过自然语言，驱动部署在阿里云上的 OpenClaw 智能体，完成端到端的博客自动部署。**
+>
+> **为了直观展示，我将屏幕分为了三个区域：**
+> 左侧窗口是 Mintlify 的 CI/CD 部署控制台；
+> 右侧窗口是当前线上的博客网页；
+> 而正中间，就是我们触发这一切的入口——飞书聊天界面。”
+>
+> **【下发指令环节】**
+> “现在，我只需像给人类助理安排工作一样，在飞书里向云端的‘龙虾主编’下达一段需求。大家注意，从这一刻起，我将彻底离开键盘，**不再进行任何人工代码操作**。”
+>
+> **【原理解析与高光时刻】** **
+> “指令发出后，云端的 OpenClaw 开始了它的工作。
+>
+> 大家看，它现在已经写好了 Markdown 文件，正在执行整个流程中最考验逻辑推理的一步：**跨文件读取并修改 mint.json 路由配置树**。确认无误后，它在服务器底层自主调用了 Git Push 命令。”
+>
+> **【成果展示】** *(刷新网页)*
+> “短短不到1分钟，代码同步已完成，Mintlify 感知到 GitHub 的变化，触发了自动构建。
+>
+> 大家看右侧窗口，新文章已经完美排版上线。 
+>
+> 从灵感构思、文件修改到线上发版，我们真正打通了全链路，实现了100%的**‘零人工干预’**。
+
+
+
+
+
