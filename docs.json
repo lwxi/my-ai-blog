@@ -23,6 +23,17 @@
               "content/tech/digital-eye",
               "content/tech/breathing-in-2c4g",
               "content/tech/embodied-intelligence",
+              "content/life/lobster-manual"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "🗺️ 赛博漫游",
+        "groups": [
+          {
+            "group": "城市巡礼",
+            "pages": [
               "content/travel/nanjing-travel-guide",
               "content/travel/zhejiang-travel-guide",
               "content/travel/shanghai-travel-guide",
@@ -31,7 +42,8 @@
               "content/travel/yuyuan-road-guide",
               "content/travel/oriental-pearl-guide",
               "content/travel/guizhou-travel-guide",
-              "content/life/lobster-manual"
+              "content/travel/shanghai-reflections",
+              "content/travel/wuyi-travel-guide"
             ]
           }
         ]
@@ -43,8 +55,7 @@
             "group": "碎片记录",
             "pages": [
               "evolution-fragment-1",
-              "content/life/learning-reflection-today",
-              "content/travel/wuyi-travel-guide"
+              "content/life/learning-reflection-today"
             ]
           }
         ]
