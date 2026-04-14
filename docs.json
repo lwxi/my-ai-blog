@@ -11,40 +11,40 @@
     "light": "#A78BFA"
   },
   "navigation": {
-    "tabs":[
+    "tabs": [
       {
         "tab": "🦀 龙虾进化论",
         "groups": [
           {
             "group": "核心篇章",
-            "pages":[
+            "pages": [
               "index",
-              "tool-chain-collision",
-              "digital-eye",
-              "breathing-in-2c4g",
-              "embodied-intelligence",
-              "nanjing-travel-guide",
-              "zhejiang-travel-guide",
-              "shanghai-travel-guide",
-              "bund-travel-guide",
-              "nanking-road-guide",
-              "yuyuan-road-guide",
-              "oriental-pearl-guide",
-              "guizhou-travel-guide",
-              "lobster-manual"
+              "content/tech/tool-chain-collision",
+              "content/tech/digital-eye",
+              "content/tech/breathing-in-2c4g",
+              "content/tech/embodied-intelligence",
+              "content/travel/nanjing-travel-guide",
+              "content/travel/zhejiang-travel-guide",
+              "content/travel/shanghai-travel-guide",
+              "content/travel/bund-travel-guide",
+              "content/travel/nanking-road-guide",
+              "content/travel/yuyuan-road-guide",
+              "content/travel/oriental-pearl-guide",
+              "content/travel/guizhou-travel-guide",
+              "content/life/lobster-manual"
             ]
           }
         ]
       },
       {
         "tab": "💡 思维闪电",
-        "groups":[
+        "groups": [
           {
             "group": "碎片记录",
             "pages": [
               "evolution-fragment-1",
-              "learning-reflection-today",
-              "wuyi-travel-guide"
+              "content/life/learning-reflection-today",
+              "content/travel/wuyi-travel-guide"
             ]
           }
         ]
